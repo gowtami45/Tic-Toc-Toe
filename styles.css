@@ -1,0 +1,478 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    background-size: 400% 400%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    animation: gradientBG 15s ease infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated background elements */
+body::before, body::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    animation: floatingBubble 20s linear infinite;
+    z-index: -1;
+}
+
+body::before {
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+}
+
+body::after {
+    bottom: -150px;
+    right: -150px;
+    width: 400px;
+    height: 400px;
+    animation-delay: 10s;
+    animation-duration: 25s;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2),
+                0 0 20px rgba(255, 255, 255, 0.3),
+                inset 0 0 15px rgba(255, 255, 255, 0.5);
+    padding: 30px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 0.8s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+    transform: rotate(30deg);
+    z-index: -1;
+    pointer-events: none;
+}
+
+h1 {
+    color: transparent;
+    background: linear-gradient(45deg, #ff4b1f, #ff9068, #1f4037, #99f2c8);
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    animation: titleGradient 6s infinite alternate, titlePulse 2s infinite alternate;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+h2 {
+    color: #555;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.player-form {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+input:focus {
+    border-color: #4CAF50;
+    box-shadow: inset 0 1px 3px rgba(76, 175, 80, 0.3);
+    outline: none;
+}
+
+button {
+    background: linear-gradient(to right, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+button:hover {
+    background: linear-gradient(to right, #45a049, #3d8b41);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#restart {
+    background: linear-gradient(to right, #f44336, #d32f2f);
+    margin-top: 20px;
+    animation: pulseButton 2s infinite alternate;
+}
+
+#restart:hover {
+    background: linear-gradient(to right, #d32f2f, #b71c1c);
+    animation: none;
+}
+
+@keyframes pulseButton {
+    0% {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    100% {
+        box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
+    }
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    margin: 20px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.board::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, rgba(66, 133, 244, 0.3), rgba(219, 68, 55, 0.3), rgba(244, 180, 0, 0.3), rgba(15, 157, 88, 0.3));
+    background-size: 400% 400%;
+    z-index: -1;
+    filter: blur(10px);
+    opacity: 0.5;
+    animation: gradientBG 15s ease infinite;
+    border-radius: 15px;
+}
+
+.cell {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 3px solid #ddd;
+    border-radius: 10px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05),
+                inset 0 0 10px rgba(0, 0, 0, 0.02);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(2px);
+}
+
+.cell:hover {
+    background-color: rgba(255, 255, 255, 1);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1),
+                0 0 15px rgba(66, 133, 244, 0.3);
+    border-color: #bbb;
+    z-index: 2;
+}
+
+.cell::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.cell:hover::after {
+    opacity: 0.3;
+    transform: scale(1);
+}
+
+.cell:active {
+    transform: translateY(1px);
+}
+
+.cell.x {
+    color: transparent;
+}
+
+.cell.x::before, .cell.x::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 60px;
+    background: linear-gradient(to bottom, #e74c3c, #c0392b);
+    border-radius: 5px;
+    animation: x-animation 0.4s ease-out forwards;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+.cell.x::before {
+    transform: rotate(45deg) scale(0);
+}
+
+.cell.x::after {
+    transform: rotate(-45deg) scale(0);
+}
+
+.cell.o {
+    color: transparent;
+}
+
+.cell.o::before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 10px solid transparent;
+    border-radius: 50%;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(to right, #3498db, #2980b9) border-box;
+    animation: o-animation 0.4s ease-out forwards;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+}
+
+.status {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding: 12px;
+    background: linear-gradient(to right, #f0f0f0, #e6e6e6);
+    border-radius: 8px;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05),
+                inset 0 0 10px rgba(255, 255, 255, 0.8);
+    transition: all 0.3s;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.status::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    background: linear-gradient(45deg, rgba(66, 133, 244, 0.1), rgba(219, 68, 55, 0.1), rgba(244, 180, 0, 0.1), rgba(15, 157, 88, 0.1));
+    background-size: 400% 400%;
+    z-index: -1;
+    filter: blur(5px);
+    animation: gradientBG 15s ease infinite;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.status:hover::before {
+    opacity: 1;
+}
+
+.hidden {
+    display: none;
+}
+
+.winner {
+    color: #4CAF50;
+    font-size: 1.5rem;
+    animation: winner-animation 1s ease-in-out infinite alternate;
+    background: linear-gradient(45deg, #4CAF50, #8BC34A, #CDDC39, #8BC34A, #4CAF50);
+    background-size: 200% 200%;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    animation: winner-animation 1s ease-in-out infinite alternate,
+               gradientBG 3s ease infinite;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes winner-animation {
+    from {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+    }
+    to {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+    }
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes floatingBubble {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0.5;
+    }
+    25% {
+        transform: translateY(-50px) translateX(50px) rotate(90deg);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(-100px) translateX(0) rotate(180deg);
+        opacity: 0.5;
+    }
+    75% {
+        transform: translateY(-50px) translateX(-50px) rotate(270deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(0) translateX(0) rotate(360deg);
+        opacity: 0.5;
+    }
+}
+
+@keyframes titleGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes titlePulse {
+    from {
+        opacity: 0.9;
+    }
+    to {
+        opacity: 1;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@keyframes x-animation {
+    0% {
+        transform: rotate(45deg) scale(0);
+    }
+    50% {
+        transform: rotate(45deg) scale(1.2);
+    }
+    100% {
+        transform: rotate(45deg) scale(1);
+    }
+}
+
+@keyframes o-animation {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 500px) {
+    .cell {
+        height: 80px;
+        font-size: 2.5rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+}
